@@ -12,11 +12,11 @@ function handleChange(file,files){
   if (file.raw.type !== 'image/jpeg' && file.raw.type !== 'image/png') {
     // 去除当前file,防止显示错误文件
     files.pop()
-    ElMessage.error('Avatar picture must be JPG format!')
+    ElMessage.error('上传图片格式错误!')
     return false
   } else if (file.raw.size / 1024 / 1024 > 2) {
     files.pop()
-    ElMessage.error('Avatar picture size can not exceed 2MB!')
+    ElMessage.error('上传图片格式不能超过 2MB!')
     return false
   }
   imgFiles.push(file)
@@ -29,10 +29,15 @@ const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
 const disabled = ref(false)
 
-const handleRemove = (UploadFile) => {
-  console.log(UploadFile)
+// 删除
+const handleRemove = (UploadFile,a) => {
+  console.log(UploadFile,a)
+  const index = imgFiles.indexOf(UploadFile)
+  imgFiles.splice(index,1)
+  // uploadFiles.
 }
 
+// 预览
 const handlePictureCardPreview = (UploadFile) => {
   dialogImageUrl.value = UploadFile.url
   dialogVisible.value = true
@@ -58,12 +63,14 @@ const handleDownload = (UploadFile) => {
       action="#"
       multiple:true
       list-type="picture-card"
+      :on-remove="handleRemove"
+      :on-preview="handlePictureCardPreview"
     >
       <el-icon class="el-icon--upload"><upload-filled /></el-icon>
       <div class="el-upload__text">
-        拖拽到此处或 <br><em>点击上传</em>
+        拖拽到此处或 <br><em>点击选择图片</em>
       </div>
-      <template #file="{ file }">
+      <!-- <template #file="{ file }">
         <div>
           <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
           <span class="el-upload-list__item-actions">
@@ -83,18 +90,26 @@ const handleDownload = (UploadFile) => {
             <span
               v-if="!disabled"
               class="el-upload-list__item-delete"
-              @click="handleRemove(file)"
+              @click="handleRemove(file,fileList)"
             >
               <el-icon><Delete /></el-icon>
             </span>
           </span>
         </div>
-      </template>
+      </template> -->
       </el-upload>
       <!-- 图片预览 -->
       <el-dialog v-model="dialogVisible">
-        <img w-full :src="dialogImageUrl" alt="Preview Image" />
+        <img w-full :src="dialogImageUrl" alt="Preview Image" class="previewImg" />
       </el-dialog>
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  .previewImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 图片等比例缩放并填充容器 */
+  }
+</style>

@@ -1,5 +1,6 @@
 <script setup>
 // import { Upload } from "@element-plus/icons-vue/dist/types";
+import { ElMessage } from 'element-plus';
 import apis from '../../api/apis';
 import { useImageData } from '../../stores/img';
 import ImgUpload from '/src/components/ImgUpload.vue'
@@ -12,13 +13,17 @@ function upload(){
 
 // file.raw 获取 原始 File 对象的方式
 async function submit(){
+  if(imgFiles.length === 0) return ElMessage({
+    message: '您还没有选择图片!',
+    type: 'warning',
+  })
   console.log(imgFiles[0].name);  
   // 获取base64编码   
   let imgData = await getImage(imgFiles) 
   console.log(imgData);
 
   //上传
-  apis.uploadImg(params)
+//   apis.uploadImg(params)
 
 }
 
