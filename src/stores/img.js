@@ -18,7 +18,7 @@ export const useImageData = defineStore('img',()=>{
         }
         reader.readAsDataURL(files)
     }
-
+    
     return {
         imgFiles,
         uplodImage
