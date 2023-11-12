@@ -47,6 +47,17 @@ function change(e) {
 </script>
 <template>
     <div>
+        <div class="upload-buttton">
+            <el-button type="primary" size="large">
+                Upload<el-icon class="el-icon--right"><Upload /></el-icon>
+            </el-button>
+            <el-button type="primary" size="large">
+                Upload<el-icon class="el-icon--right"><Upload /></el-icon>
+            </el-button>
+            <el-button type="primary" size="large">
+                Upload<el-icon class="el-icon--right"><Upload /></el-icon>
+            </el-button>
+        </div>
         <ImgUpload/>
         <input type="file" class="file" @change="change">
         <button @click="upload">
@@ -54,3 +65,11 @@ function change(e) {
         </button>
     </div>
 </template>
+<style lang="scss" scoped>
+    .upload-buttton {
+        width: 100wh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+</style>

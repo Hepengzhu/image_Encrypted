@@ -15,10 +15,17 @@ const menus = [
         name:'分享',
         menuCode:'share',
         path:'/main/myshare'
+    },
+    {
+        icon:'my',
+        name:'我的',
+        menuCode:'my',
+        path:'/main/my'
     }
 ]
 let currentMenu = ref('home')
 function jump(item) {
+    console.log(item.menuCode,currentMenu.value,1111);
     // 如果点击的是当前菜单或者点击菜单的路径为空 直接返回
     if(!item.path || item.menuCode === currentMenu.value) return 
 
@@ -26,10 +33,12 @@ function jump(item) {
     currentMenu.value = item.menuCode
     //路由跳转
     router.push(item.path)
+
 }
 </script>
 <template>
     <div class="body">
+        <!-- 侧边栏 -->
         <div class="left-sider">
             <div class="menu-list">
                 <div v-for="item in menus" @click="jump(item)" :class="['menu-item',item.menuCode === currentMenu?'active':'']" :key="item.menuCode">
@@ -40,6 +49,7 @@ function jump(item) {
             <!-- <div class="menu-sub-list"></div> -->
         </div>
 
+        <!-- 内容 -->
         <div class="body-content">
             <!-- body-content -->
             <RouterView/>
@@ -85,6 +95,10 @@ function jump(item) {
                     }
                 }
             }
+        }
+        .body-content {
+            width: 100%;
+            margin: 10px 10px 0px 10px;
         }
     }
 </style>

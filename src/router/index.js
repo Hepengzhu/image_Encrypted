@@ -23,7 +23,12 @@ const router = createRouter({
           path:'myshare',
           name:'myshare',
           component:()=>import('/src/views/body/Share.vue')
-        }
+        },
+        {
+          path:'my',
+          name:'my',
+          component:()=>import('/src/views/body/My.vue')
+        },
       ]
     }
   ]
