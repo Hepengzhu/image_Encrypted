@@ -4,11 +4,21 @@ import {useImageData} from '../stores/img'
 import { ref } from 'vue'
 
 const imgFormData = new FormData()
-let {imgFiles,uplodImage} = useImageData()
-// let imgFiles = []
+let {imgFiles} = useImageData()
+
 // 存放图片的数组
 // 关闭自动上传，然后通过文件状态改变时的钩子获取图片
-function handleChange(file,fileas){
+function handleChange(file,files){
+  if (file.raw.type !== 'image/jpeg' && file.raw.type !== 'image/png') {
+    // 去除当前file,防止显示错误文件
+    files.pop()
+    ElMessage.error('Avatar picture must be JPG format!')
+    return false
+  } else if (file.raw.size / 1024 / 1024 > 2) {
+    files.pop()
+    ElMessage.error('Avatar picture size can not exceed 2MB!')
+    return false
+  }
   imgFiles.push(file)
   // console.log(file.file);
   // console.log(imgFiles[0]);
@@ -33,12 +43,6 @@ const handleDownload = (UploadFile) => {
 }
 
 
-// file.raw 获取 原始 File 对象的方式
-function submit(){
-  console.log(imgFiles[0].name);  
-  uplodImage(imgFiles[0].raw) 
-
-}
 
 // this.$refs.upload.clearFiles(); 
 </script>
@@ -54,7 +58,6 @@ function submit(){
       action="#"
       multiple:true
       list-type="picture-card"
-      :http-request="httpRequest"
     >
       <el-icon class="el-icon--upload"><upload-filled /></el-icon>
       <div class="el-upload__text">

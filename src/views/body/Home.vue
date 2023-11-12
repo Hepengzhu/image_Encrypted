@@ -1,10 +1,11 @@
 <script setup>
 // import { Upload } from "@element-plus/icons-vue/dist/types";
-import axios from 'axios'
+import apis from '../../api/apis';
 import { useImageData } from '../../stores/img';
 import ImgUpload from '/src/components/ImgUpload.vue'
 
-let {uplodImage,imgFiles} = useImageData()
+let {getImage,imgFiles} = useImageData()
+
 function upload(){
     // uplodImage(files)
 }
@@ -12,9 +13,12 @@ function upload(){
 // file.raw 获取 原始 File 对象的方式
 async function submit(){
   console.log(imgFiles[0].name);  
-  let aa = await uplodImage(imgFiles) 
+  // 获取base64编码   
+  let imgData = await getImage(imgFiles) 
+  console.log(imgData);
 
-  console.log(aa);
+  //上传
+  apis.uploadImg(params)
 
 }
 

@@ -25,7 +25,6 @@ const menus = [
 ]
 let currentMenu = ref('home')
 function jump(item) {
-    console.log(item.menuCode,currentMenu.value,1111);
     // 如果点击的是当前菜单或者点击菜单的路径为空 直接返回
     if(!item.path || item.menuCode === currentMenu.value) return 
 

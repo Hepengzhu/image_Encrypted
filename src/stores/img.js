@@ -16,15 +16,13 @@ export const useImageData = defineStore('img',()=>{
         });
       }
     // 自定义图片上传
-    async function uplodImage(files){
+    async function getImage(files){
         console.log(files);
-        if(files.length === 0) return
-        // let formData = new FormData()
-        // formData.append(files.name, files, files.name)
-        // const file = formData.get(files.name)
+        if(files.length === 0) return false
         let imgparms = []
         for (const file of files) {
             try {
+                // ****** file.raw 获取 原始 File 对象的方式
               const dataURL = await readFileAsDataURL(file.raw);
               imgparms.push(dataURL);
             } catch (error) {
@@ -33,21 +31,12 @@ export const useImageData = defineStore('img',()=>{
             }
           }
 
-        // for(let i = 0;i<files.length;i++){
-        //     const reader = new FileReader()
-        //     reader.onload = (e)=>{
-        //         console.log(e);
-        //         console.log(e.target.result);
-        //         imgparms.push(e.target.result)
-        //     }
-        //     reader.readAsDataURL(files[i].raw)
-        // }
         return imgparms
         
     }
 
     return {
         imgFiles,
-        uplodImage
+        getImage
     }
 })
