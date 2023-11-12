@@ -10,8 +10,8 @@ let {imgFiles,uplodImage} = useImageData()
 // 关闭自动上传，然后通过文件状态改变时的钩子获取图片
 function handleChange(file,fileas){
   imgFiles.push(file)
-  console.log(file.file);
-  console.log(imgFiles[0]);
+  // console.log(file.file);
+  // console.log(imgFiles[0]);
 }
 
 // 
@@ -93,6 +93,5 @@ function submit(){
         <img w-full :src="dialogImageUrl" alt="Preview Image" />
       </el-dialog>
     </div>
-    <button @click="submit()">上传</button>
   </div>
 </template>
