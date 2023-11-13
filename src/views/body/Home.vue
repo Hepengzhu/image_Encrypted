@@ -67,10 +67,10 @@ async function submit(){
     <div>
         <div class="upload-buttton">
             <el-button type="primary" size="large" @click="submit()">
-                使用xx加密<el-icon class="el-icon--right"><Upload /></el-icon>
+                使用xx加密<el-icon class="el-icon--right"><UploadFilled /></el-icon>
             </el-button>
             <el-button type="primary" size="large" @click="submit()">
-                使用xx加密<el-icon class="el-icon--right"><Upload /></el-icon>
+                使用xx加密<el-icon class="el-icon--right"><UploadFilled /></el-icon>
             </el-button>
             <el-button type="primary" size="large" @click="submit()">
                 使用xx加密<el-icon class="el-icon--right"><Upload /></el-icon>
@@ -91,5 +91,9 @@ async function submit(){
         align-items: center;
         margin-bottom: 20px;
         padding: 0px 300px;
+    }
+    .font {
+        font-size: 16px;
+        font-weight: 800px;
     }
 </style>

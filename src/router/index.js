@@ -20,6 +20,11 @@ const router = createRouter({
           component:()=>import('/src/views/body/Home.vue')
         },
         {
+          path:'unlock',
+          name:'unlock',
+          component:()=>import('/src/views/body/Unlock.vue')
+        },
+        {
           path:'myshare',
           name:'myshare',
           component:()=>import('/src/views/body/Share.vue')
@@ -29,6 +34,11 @@ const router = createRouter({
           name:'my',
           component:()=>import('/src/views/body/My.vue')
         },
+        {
+          path:'islock',
+          name:'islock',
+          component:()=>import('/src/views/body/IsLock.vue')
+        }
       ]
     }
   ]
