@@ -12,7 +12,7 @@ export default {
     },
     uploadImg(params){
         return request({
-            url:'/api/',
+            url:'/',
             method:'post',
             data:params,
             mock:false

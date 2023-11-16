@@ -19,14 +19,16 @@ service.interceptors.request.use((req)=>{
 service.interceptors.response.use((res)=>{
     // 对请求结果进行统一的处理  
     // 解构结果
-    const {code,data,msg} = res.data
-    if(code == 200) {
-        return data
-    }else{
-        // 网络请求错误
-        ElMessage.error(msg || NETWORK_ERROE)
-        return Promise.reject(msg || NETWORK_ERROE)
-    }
+    console.log(res);
+    // const {code,data,msg} = res.data
+    // if(code == 200) {
+    //     return data
+    // }else{
+    //     console.log(code,data);
+    //     // 网络请求错误
+    //     ElMessage.error(msg || NETWORK_ERROE)
+    //     return Promise.reject(msg || NETWORK_ERROE)
+    // }
 })
 
 
@@ -61,8 +63,8 @@ function request(options) {
     }else {
         // 否则根据 mock的开关来决定
         service.defaults.baseURL = isMock? config.mockApi : config.baseApi
+        console.log(options);
     }
-
     return service(options)
 }
 

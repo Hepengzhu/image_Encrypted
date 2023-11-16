@@ -12,7 +12,7 @@ const env = import.meta.env.MODE || 'prod'
 const EnvConfig = {
     // 开发
     development:{
-        baseApi:'/api',
+        baseApi:'http://localhost:5173/api',
         mockApi:'https://www.fastmock.site/mock/f9f9af55bb0d63fcedcd53f5dca55918/api'
     },
     // 测试

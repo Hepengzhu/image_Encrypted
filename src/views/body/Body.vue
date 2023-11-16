@@ -52,7 +52,7 @@ const menus = [
             },
             {
                 icon:'Unlock',
-                name:'解密',
+                name:'一键解密',
                 menuCode:'unlock',
                 path:'/main/unlock'
             }

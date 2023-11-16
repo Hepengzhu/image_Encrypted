@@ -1,9 +1,7 @@
 import { ref, computed } from 'vue'
-import apis from '../api/apis'
 import { defineStore } from 'pinia'
 
 export const useImageData = defineStore('img',()=>{
-    let formData = new FormData() 
     let imgFiles = ref([])
 
     function readFileAsDataURL(file) {
@@ -15,7 +13,7 @@ export const useImageData = defineStore('img',()=>{
           reader.readAsDataURL(file);
         });
       }
-    // 自定义图片上传
+    // 自定义图片上传,返回图片base64格式
     async function getImage(files){
         console.log(files);
         if(files.length === 0) return false
