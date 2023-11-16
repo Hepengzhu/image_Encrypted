@@ -14,17 +14,14 @@ const srcList = [
 let isPreview = ref(srcList) //是否可预览图片用于选择图片的时候取消预览
 // 选择图片的状态控制
 const changeImage = ()=>{
-  console.log(checkShow);
     checkShow.value = !checkShow.value
-    if(checkShow) isPreview.value = []
-    else isPreview.value = srcList
+    isPreview.value = checkShow.value?[]:srcList
 }
 const checkAll = ref(false)
 const isIndeterminate = ref(true)
 const checkedSrcList = ref([])
 
 const handleCheckAllChange = (val) => {
-  console.log(val);
   checkedSrcList.value = val ? srcList : []
   console.log(checkedSrcList.value);
   isIndeterminate.value = false
