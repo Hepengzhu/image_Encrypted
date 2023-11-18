@@ -61,6 +61,7 @@ const menus = [
 ]
 let currentMenu = ref(menus[0])
 let subCurrentMenu = ref(menus[0].children[0])
+
 function jump(item) {
     // 如果点击的是当前菜单或者点击菜单的路径为空 直接返回
     if(!item.path || item.menuCode === currentMenu.value.menuCode) return 

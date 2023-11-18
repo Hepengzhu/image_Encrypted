@@ -17,17 +17,29 @@ const changeImage = ()=>{
     checkShow.value = !checkShow.value
     isPreview.value = checkShow.value?[]:srcList
 }
-const checkAll = ref(false)
-const isIndeterminate = ref(true)
-const checkedSrcList = ref([])
 
+// 上传解密
+const decrypt = ()=>{
+  if(checkedSrcList.value.length === 0) return ElMessage({
+      message: '您还没有选择图片!',
+      type: 'warning',
+    })
+  
+  // 上传
+}
+
+// 多选
+const checkAll = ref(false)
+const isIndeterminate = ref(true) //不确定全选的状态
+const checkedSrcList = ref([]) //已选择的数据
+// 全选函数
 const handleCheckAllChange = (val) => {
   checkedSrcList.value = val ? srcList : []
   console.log(checkedSrcList.value);
   isIndeterminate.value = false
 }
+// 选择时触发的函数
 const handleCheckedSrcListChange = (value) => {
-  console.log(value);
   const checkedCount = value.length
   checkAll.value = checkedCount === srcList.length
   isIndeterminate.value = checkedCount > 0 && checkedCount < srcList.length
@@ -37,7 +49,7 @@ const handleCheckedSrcListChange = (value) => {
 <template>
     <div class="img">
         <div class="button">
-            <el-button size="large" type="primary" >一键解密</el-button>
+            <el-button size="large" type="primary" @click="decrypt" >一键解密</el-button>
             <el-button type="info" @click="changeImage" size="large">选中图片</el-button>
         </div>
         <div class="demo-image__preview">
