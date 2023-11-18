@@ -1,6 +1,7 @@
 <script setup>
 import axios from "axios"
 import { ref } from "vue"
+import {useimgDownload} from '/src/hooks'
 let checkShow = ref(false) //是否显示选择框
 const url ='https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg'
 const srcList = [
@@ -19,24 +20,6 @@ const changeImage = ()=>{
     isPreview.value = checkShow.value?[]:srcList
 }
 
-// 下载函数
-function downloadFile(url, fileName) {
-    const a = document.createElement('a');
-    a.style.display = 'none';
-      // 设置a标签的属性
-      a.setAttribute('href', url);
-      a.setAttribute('download', fileName);
-    // a.href = url;
-    // a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    a.addEventListener('click', function(event) {
-    event.preventDefault();
-  });
-    document.body.removeChild(a);
-}
-
-
 // 点击下载
 const download = ()=>{
   if(checkedSrcList.value.length === 0) return ElMessage({
@@ -44,45 +27,9 @@ const download = ()=>{
       type: 'warning',
     })
     // 下载
-    checkedSrcList.value.forEach((element,index) => {
-        fetch(element)
-            .then(response => response.blob())
-            .then(blob => {
-                // 创建隐藏的a标签并设置其属性
-                var link = document.createElement('a');
-                link.style.display = 'none';
-                document.body.appendChild(link);
-
-                var url = window.URL.createObjectURL(blob);
-                link.href = url;
-                link.download = 'image.jpg';
-
-                // 模拟点击事件进行下载
-                link.click();
-
-                // 下载完成后移除a标签
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(link);
-            });
-        // axios.get(element).then(res=>res.blob()).then(blob=>{
-        //     // 创建隐藏的a标签并设置其属性
-        //     var link = document.createElement('a');
-        //     link.style.display = 'none';
-        //     document.body.appendChild(link);
-
-        //     var url = window.URL.createObjectURL(blob);
-        //     link.href = url;
-        //     link.download = 'image.jpg';
-
-        //     // 模拟点击事件进行下载
-        //     link.click();
-
-        //     // 下载完成后移除a标签
-        //     window.URL.revokeObjectURL(url);
-        //     document.body.removeChild(link);
-        //     // downloadFile(element, index+'.jpg');
-        // })
-    
+    checkedSrcList.value.forEach((url,index) => {
+        // index为图片名字
+        useimgDownload(url,index)
     });
     
 }
