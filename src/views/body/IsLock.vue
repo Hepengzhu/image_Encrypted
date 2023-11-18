@@ -31,6 +31,9 @@ const download = ()=>{
         // index为图片名字
         useimgDownload(url,index)
     });
+
+    // 下载完成恢复原来的状态
+    setTimeout(changeImage,1000)
     
 }
 
