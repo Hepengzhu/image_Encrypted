@@ -5,22 +5,28 @@ import {useimgDownload} from '/src/hooks'
 import { storeToRefs } from "pinia"
 
 const store = useImageData()
-const {checkedSrcList} = storeToRefs(store)
+// 获取已经选择的图片
+const {checkedSrcList,encryptionImg} = storeToRefs(store)
 
 // 上传解密
-const decrypt = ()=>{
+const decrypt = (changeImage)=>{
   if(checkedSrcList.value.length === 0) return ElMessage({
       message: '您还没有选择图片!',
       type: 'warning',
     })
   
   // 上传
+
+  setTimeout(changeImage,1000)
+
 }
 </script>
 
 <template>
   <ImgCheck>
-    <el-button size="large" type="primary" @click="decrypt" >一键解密</el-button>
+    <template v-slot:button="slotProps">
+      <el-button size="large" type="primary" @click="decrypt(slotProps.changeImage)" >一键解密</el-button>
+    </template>
   </ImgCheck>
 </template>
 

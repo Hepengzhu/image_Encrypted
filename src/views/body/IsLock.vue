@@ -8,7 +8,7 @@ import { storeToRefs } from "pinia"
 const store = useImageData()
 const {checkedSrcList} = storeToRefs(store)
 // 点击下载
-const download = ()=>{
+const download = (changeImage)=>{
   if(checkedSrcList.value.length === 0) return ElMessage({
       message: '您还没有选择图片!',
       type: 'warning',
@@ -27,6 +27,9 @@ const download = ()=>{
 
 <template>
   <ImgCheck>
-    <el-button size="large" type="primary" @click="download" >下载</el-button>
+    <template v-slot:button="slotProps">
+      <el-button size="large" type="primary" @click="download(slotProps.changeImage)" >下载</el-button>
+    </template>
+    
   </ImgCheck>
 </template>

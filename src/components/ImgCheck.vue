@@ -50,7 +50,7 @@ const isIndeterminate = ref(true) //不确定全选的状态
 // 全选函数
 const handleCheckAllChange = (val) => {
   checkedSrcList.value = val ? srcList : []
-  console.log(checkedSrcList.value);
+//   console.log(checkedSrcList.value);
   isIndeterminate.value = false
 }
 // 选择时触发的函数
@@ -64,7 +64,7 @@ const handleCheckedSrcListChange = (value) => {
 <template>
     <div class="img">
         <div class="button">
-            <slot></slot>
+            <slot name="button" :changeImage="changeImage"></slot>
             <el-button type="info" @click="changeImage" size="large">{{!checkShow ?'选中图片':'取消选择'}}</el-button>
         </div>
         <div class="demo-image__preview">

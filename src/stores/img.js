@@ -2,13 +2,13 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useImageData = defineStore('img',()=>{
+  //已选择的数据，数据来源选择图片组件
+  const checkedSrcList = ref([]) 
 
-  const checkedSrcList = ref([]) //已选择的数据
-
-  // 暂时存放即将上传的图片
+  // 选择暂时存放即将上传的图片，数据来源上传组件
     let imgFiles = ref([])
 
-    // 已加密的图片
+    // 已加密的图片，数据来源 后台+上传成功
     let encryptionImg = ref([])
 
     // 处理异步读取文件
