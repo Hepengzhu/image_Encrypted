@@ -2,11 +2,12 @@
 import { UploadFilled } from '@element-plus/icons-vue'
 import {useImageData} from '../stores/img'
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 
 const imgFormData = new FormData()
 
-// 
-let {imgFiles} = useImageData()
+// 将要上传的图片
+let {imgFiles} = storeToRefs(useImageData()) 
 
 // 存放图片的数组
 // 关闭自动上传，然后通过文件状态改变时的钩子获取图片
@@ -21,7 +22,7 @@ function handleChange(file,files){
     ElMessage.error('上传图片格式不能超过 2MB!')
     return false
   }
-  imgFiles.push(file)
+  imgFiles.value.push(file)
   // console.log(file.file);
   // console.log(imgFiles[0]);
 }

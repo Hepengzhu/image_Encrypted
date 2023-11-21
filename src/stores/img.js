@@ -29,7 +29,7 @@ export const useImageData = defineStore('img',()=>{
               imgparms.push(dataURL);
             } catch (error) {
               console.error('Error reading file:', error);
-              imgparms.push(null);
+              // imgparms.push(null);
             }
           }
 

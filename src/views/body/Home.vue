@@ -4,8 +4,10 @@ import { ElMessage } from 'element-plus';
 import apis from '../../api/apis';
 import { useImageData } from '../../stores/img';
 import ImgUpload from '/src/components/ImgUpload.vue'
+import { storeToRefs } from 'pinia';
 
-let {getImage,imgFiles} = useImageData()
+let {getImage} = useImageData()
+let {imgFiles} = storeToRefs(useImageData())
 let is_loading = ref(false)
 function upload(){
     // uplodImage(files)
@@ -13,19 +15,21 @@ function upload(){
 
 // file.raw 获取 原始 File 对象的方式
 async function submit(){
-  if(imgFiles.length === 0) return ElMessage({
+  if(imgFiles.value.length === 0) return ElMessage({
     message: '您还没有选择图片!',
     type: 'warning',
   })
   is_loading = true
   // 获取base64编码   
-  let imgData = await getImage(imgFiles) 
-  console.log(imgData);
+  let imgData = await getImage(imgFiles.value) 
 
   //上传
   apis.uploadImg(imgData).then(res=>{
     console.log(res);
     is_loading = false
+
+    // 清空上传缓存
+    imgFiles.value.length = 0
   })
 
 }
