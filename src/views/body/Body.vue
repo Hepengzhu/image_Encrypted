@@ -1,66 +1,73 @@
 <script setup>
 import { ref } from "vue"
+import { storeToRefs } from 'pinia'
 import { useRouter,RouterView } from "vue-router"
-
+import {useMenus} from '/src/stores/menus.js'
 const router = useRouter()
-const menus = [
-    {
-        icon:'home',
-        name:'首页',
-        menuCode:'home',
-        path:'/main/home',
-        children:[
-            {
-                icon:'Lock',
-                name:'加密',
-                menuCode:'home',
-                path:'/main/home'
-            },
-            {
-                icon:'Unlock',
-                name:'解密',
-                menuCode:'unlock',
-                path:'/main/unlock'
-            }
-        ]
-    },
-    {
-        icon:'share',
-        name:'分享',
-        menuCode:'share',
-        path:'/main/myshare',
-        children:[
-            {
-                icon:'Share',
-                name:'分享',
-                menuCode:'home',
-                path:'/main/home'
-            }
-        ]
-    },
-    {
-        icon:'my',
-        name:'我的',
-        menuCode:'my',
-        path:'/main/islock',
-        children:[
-            {
-                icon:'Lock',
-                name:'已加密',
-                menuCode:'home',
-                path:'/main/islock'
-            },
-            {
-                icon:'Unlock',
-                name:'一键解密',
-                menuCode:'unlock',
-                path:'/main/unlock'
-            }
-        ]
-    }
-]
-let currentMenu = ref(menus[0])
-let subCurrentMenu = ref(menus[0].children[0])
+const store = useMenus()
+const {menus,savaCurrenMenu,savaSubCurrentMenu} = store
+// 响应式 需要使用storeToRefs来结构
+const {currentMenu,subCurrentMenu} = storeToRefs(store)
+
+
+// const menus = [
+//     {
+//         icon:'home',
+//         name:'首页',
+//         menuCode:'home',
+//         path:'/main/home',
+//         children:[
+//             {
+//                 icon:'Lock',
+//                 name:'加密',
+//                 menuCode:'home',
+//                 path:'/main/home'
+//             },
+//             {
+//                 icon:'Unlock',
+//                 name:'解密',
+//                 menuCode:'decrypt',
+//                 path:'/main/decrypt'
+//             }
+//         ]
+//     },
+//     {
+//         icon:'share',
+//         name:'分享',
+//         menuCode:'share',
+//         path:'/main/myshare',
+//         children:[
+//             {
+//                 icon:'Share',
+//                 name:'分享',
+//                 menuCode:'home',
+//                 path:'/main/home'
+//             }
+//         ]
+//     },
+//     {
+//         icon:'my',
+//         name:'我的',
+//         menuCode:'my',
+//         path:'/main/islock',
+//         children:[
+//             {
+//                 icon:'Lock',
+//                 name:'已加密',
+//                 menuCode:'home',
+//                 path:'/main/islock'
+//             },
+//             {
+//                 icon:'Unlock',
+//                 name:'一键解密',
+//                 menuCode:'unlock',
+//                 path:'/main/unlock'
+//             }
+//         ]
+//     }
+// ]
+// let currentMenu = ref(menus[0])
+// let subCurrentMenu = ref(menus[0].children[0])
 
 function jump(item) {
     // 如果点击的是当前菜单或者点击菜单的路径为空 直接返回
@@ -68,6 +75,7 @@ function jump(item) {
     // 修改当前菜单
     currentMenu.value = item
     subCurrentMenu.value = item.children[0]
+    savaCurrenMenu(item)
     //路由跳转
     router.push(item.path)
 
@@ -79,6 +87,7 @@ function subJump(sub){
 
     // 修改当前菜单
     subCurrentMenu.value = sub
+    savaSubCurrentMenu(sub)
     //路由跳转
     router.push(sub.path)
 }

@@ -1,7 +1,8 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import VueCookies from 'vue-cookies'
 
-export const useCounterStore = defineStore('menus', () => {
+export const useMenus = defineStore('menus', () => {
     const menus = [
         {
             icon:'home',
@@ -18,8 +19,8 @@ export const useCounterStore = defineStore('menus', () => {
                 {
                     icon:'Unlock',
                     name:'解密',
-                    menuCode:'unlock',
-                    path:'/main/unlock'
+                    menuCode:'decrypt',
+                    path:'/main/decrypt'
                 }
             ]
         },
@@ -60,6 +61,13 @@ export const useCounterStore = defineStore('menus', () => {
     ]
     let currentMenu = ref(menus[0])
     let subCurrentMenu = ref(menus[0].children[0])
-    
-  return { menus, currentMenu, subCurrentMenu }
+    currentMenu.value = VueCookies.get('currentMenu')?VueCookies.get('currentMenu'):menus[0]
+    subCurrentMenu.value = VueCookies.get('subCurrentMenu')?VueCookies.get('subCurrentMenu'):menus[0].children[0]
+    function savaCurrenMenu(currentMenu){
+        VueCookies.set('currentMenu',currentMenu)
+    }
+    function savaSubCurrentMenu(subCurrentMenu){
+        VueCookies.set('subCurrentMenu',subCurrentMenu)
+    }
+  return { menus, currentMenu, subCurrentMenu,savaCurrenMenu,savaSubCurrentMenu }
 })

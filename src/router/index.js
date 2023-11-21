@@ -20,6 +20,11 @@ const router = createRouter({
           component:()=>import('/src/views/body/Home.vue')
         },
         {
+          path:'decrypt',
+          name:"decrypt",
+          component:()=>import('/src/views/body/Decrypt.vue')
+        },
+        {
           path:'unlock',
           name:'unlock',
           component:()=>import('/src/views/body/Unlock.vue')

@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 export const useImageData = defineStore('img',()=>{
     let imgFiles = ref([])
 
+    // 处理异步读取文件
     function readFileAsDataURL(file) {
         return new Promise((resolve, reject) => {
           var reader = new FileReader();
@@ -15,7 +16,6 @@ export const useImageData = defineStore('img',()=>{
       }
     // 自定义图片上传,返回图片base64格式
     async function getImage(files){
-        console.log(files);
         if(files.length === 0) return false
         let imgparms = []
         for (const file of files) {

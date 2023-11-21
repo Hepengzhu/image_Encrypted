@@ -59,7 +59,7 @@ const handleCheckedSrcListChange = (value) => {
     <div class="img">
         <div class="button">
             <el-button size="large" type="primary" @click="download" >下载</el-button>
-            <el-button type="info" @click="changeImage" size="large">选中图片</el-button>
+            <el-button type="info" @click="changeImage" size="large">{{!checkShow ?'选中图片':'取消选择'}}</el-button>
         </div>
         <div class="demo-image__preview">
             <el-checkbox v-show="checkShow" style="display: block;"
