@@ -18,7 +18,6 @@ async function submit(){
     type: 'warning',
   })
   is_loading = true
-  console.log(imgFiles[0].name);  
   // 获取base64编码   
   let imgData = await getImage(imgFiles) 
   console.log(imgData);

@@ -1,9 +1,17 @@
 <script setup>
+import { storeToRefs } from "pinia";
 import { ref } from "vue";
-const imgUrl = ref('/src/assets/image/头像.jpg')
-const uerInfo = ref({
-    nickName:'admin'
-})
+import  VueCookies  from 'vue-cookies'
+import {useUserStore} from '/src/stores/user.js'
+const store = useUserStore()
+const {saveUserInfo} = store
+const {userInfo} = storeToRefs(store) 
+
+const logOut = ()=>{
+    VueCookies.set('aa','aakakak')
+    VueCookies.remove('currentMenu')
+    VueCookies.remove('subCurrentMenu')
+}
 </script>
 <template>
     <div class="header">
@@ -13,14 +21,14 @@ const uerInfo = ref({
                 <el-dropdown>
                 <div class="user-info">
                     <div class="avatar"></div>
-                    <el-avatar :size="50" :src="imgUrl" />
-                    <span class="nick-name">{{uerInfo.nickName}}</span>
+                    <el-avatar :size="50" :src="userInfo.imgUrl" />
+                    <span class="nick-name">{{userInfo.name}}</span>
                 </div>
                 <template #dropdown>
                     <el-dropdown-menu>
                         <el-dropdown-item>修改头像</el-dropdown-item>
                         <el-dropdown-item>修改密码</el-dropdown-item>
-                        <el-dropdown-item>退出</el-dropdown-item>
+                        <el-dropdown-item @click="logOut">退出</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>

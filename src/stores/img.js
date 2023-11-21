@@ -2,7 +2,11 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useImageData = defineStore('img',()=>{
+  // 战时存放即将上传的图片
     let imgFiles = ref([])
+
+    // 已加密的图片
+    let encryptionImg = ref([])
 
     // 处理异步读取文件
     function readFileAsDataURL(file) {
@@ -35,6 +39,7 @@ export const useImageData = defineStore('img',()=>{
 
     return {
         imgFiles,
+        encryptionImg,
         getImage
     }
 })

@@ -76,6 +76,7 @@ function jump(item) {
     currentMenu.value = item
     subCurrentMenu.value = item.children[0]
     savaCurrenMenu(item)
+    savaSubCurrentMenu(item.children[0])
     //路由跳转
     router.push(item.path)
 

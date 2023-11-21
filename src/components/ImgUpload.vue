@@ -4,6 +4,8 @@ import {useImageData} from '../stores/img'
 import { ref } from 'vue'
 
 const imgFormData = new FormData()
+
+// 
 let {imgFiles} = useImageData()
 
 // 存放图片的数组
