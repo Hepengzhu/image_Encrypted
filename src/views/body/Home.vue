@@ -13,6 +13,7 @@ function upload(){
     // uplodImage(files)
 }
 
+let img = ref([])
 // file.raw 获取 原始 File 对象的方式
 async function submit(){
   if(imgFiles.value.length === 0) return ElMessage({
@@ -25,9 +26,7 @@ async function submit(){
 
   //上传
   apis.uploadImg(imgData).then(res=>{
-    console.log(res);
     is_loading = false
-
     // 清空上传缓存
     imgFiles.value.length = 0
   })
@@ -46,11 +45,12 @@ async function submit(){
                 使用xx加密<el-icon class="el-icon--right"><UploadFilled /></el-icon>
             </el-button>
             <el-button type="primary" plain size="large" @click="submit()">
-                使用xx加密<el-icon class="el-icon--right"><Upload /></el-icon>
+                使用xx加密<el-icon class="el-icon--right"><UploadFilled /></el-icon>
             </el-button>
         </div>
         <!-- 图片上传组件 -->
         <ImgUpload/>
+        
     </div>
 </template>
 <style lang="scss" scoped>

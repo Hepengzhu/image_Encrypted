@@ -19,17 +19,16 @@ service.interceptors.request.use((req)=>{
 service.interceptors.response.use((res)=>{
     // 对请求结果进行统一的处理  
     // 解构结果
-    console.log(res);
-    // const {code,data,msg} = res.data
-    // if(code == 200) {
-    //     return data
-    // }else{
-    //     console.log(code,data);
-    //     // 网络请求错误
-    //     ElMessage.error(msg || NETWORK_ERROE)
-    //     return Promise.reject(msg || NETWORK_ERROE)
-    // }
-    return res
+    // console.log(res.data);
+    const {data,msg} = res.data
+    if(res.status == 200) {
+        return data
+    }else{
+        console.log(msg,data);
+        // 网络请求错误
+        ElMessage.error(msg || NETWORK_ERROE)
+        return Promise.reject(msg || NETWORK_ERROE)
+    }
 })
 
 

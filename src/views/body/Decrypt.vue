@@ -23,7 +23,7 @@ async function submit(){
   let imgData = await getImage(imgFiles) 
   console.log(imgData);
 
-  //上传
+  //上传解密
   apis.uploadImg(imgData).then(res=>{
     console.log(res);
     is_loading = false

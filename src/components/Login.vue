@@ -1,8 +1,13 @@
 <script setup>
 import { reactive,ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
-
+import {useImageData} from '/src/stores/img.js'
+import { storeToRefs } from "pinia"
 import api from '../api/apis'
+
+const store = useImageData()
+const {encryptionImg} = storeToRefs(store)
+
 const router = useRouter()
 let userForm = reactive({
     username:'admin',
@@ -14,9 +19,10 @@ const login = async()=>{
 
         // store.commit('setToken',res.token)
         // 路由跳转
-        console.log(res);
+        console.log(res.userInfo.encryptionImg);
         if(res.userInfo.message === '成功') {
-
+            // 获取已加密的图片
+            encryptionImg.value.push(...res.userInfo.encryptionImg)
             router.push('/main')
         }
         else {

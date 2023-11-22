@@ -10,6 +10,7 @@ export default {
             mock:true
         })
     },
+    // 上传加密
     uploadImg(params){
         return request({
             url:'/',
