@@ -7,7 +7,7 @@ import {useImageData} from '/src/stores/img.js'
 import { storeToRefs } from "pinia"
 
 const store = useImageData()
-const {urlList,encryptionImg} = storeToRefs(store)
+const {urlList,encryptionImg,decryptImg} = storeToRefs(store)
 let isRefreshing = ref(false)
 
 // 获取加密和不加密的图片数据
@@ -15,8 +15,9 @@ onMounted(async ()=>{
   const image = await apis.getImg()
   console.log(image);
   // 加密图和原图同步存储
-  encryptionImg.value.push(...image.data.encryptionImg)
-  urlList.value.push(...image.data.urlList)
+  encryptionImg.value.push(...image.data.encryptionImg) //加密图片
+  urlList.value.push(...image.data.urlList) //加密原图
+  decryptImg.value.push(...image.data.decryptImg) //解密的原图
 })
 
 

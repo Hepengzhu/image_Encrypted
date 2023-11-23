@@ -10,9 +10,11 @@ export const useImageData = defineStore('img',()=>{
 
     // 已加密的图片，数据来源 后台+上传成功
     let encryptionImg = ref([])
-
     // 预览图片 -> 原图
     let urlList = ref([])
+
+    // 解密图片
+    let decryptImg = ref([])
     // 处理异步读取文件
     function readFileAsDataURL(file) {
         return new Promise((resolve, reject) => {
@@ -47,6 +49,7 @@ export const useImageData = defineStore('img',()=>{
         imgFiles,
         encryptionImg,
         urlList,
+        decryptImg,
         getImage
     }
 })
