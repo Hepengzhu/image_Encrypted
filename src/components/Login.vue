@@ -1,32 +1,31 @@
 <script setup>
 import { reactive,ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
+import {useUserStore} from '/src/stores/user.js'
 import {useImageData} from '/src/stores/img.js'
 import { storeToRefs } from "pinia"
 import api from '../api/apis'
 
 const store = useImageData()
 const {encryptionImg} = storeToRefs(store)
-
+const {userForm} = storeToRefs(useUserStore())
 const router = useRouter()
-let userForm = reactive({
-    username:'admin',
-    password:'123456'
-})
+
 let isRemember = ref(false)
 const login = async()=>{
-        const res = await api.login(userForm)
+        const res = await api.login(userForm.value)
 
         // store.commit('setToken',res.token)
         // 路由跳转
-        console.log(res.userInfo.encryptionImg);
-        if(res.userInfo.message === '成功') {
-            // 获取已加密的图片
-            encryptionImg.value.push(...res.userInfo.encryptionImg)
+        console.log(res.msg);
+        if(res.code ===  200) {
+            ElMessage.success(res.msg)
+            // // 获取已加密的图片
+            // encryptionImg.value.push(...res.userInfo.encryptionImg)
             router.push('/main')
         }
         else {
-            ElMessage.error('账号或密码错误！')
+            ElMessage.error(res.msg)
         }
 }
 

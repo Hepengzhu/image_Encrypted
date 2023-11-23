@@ -7,7 +7,7 @@ export default {
             url: '/login',
             method: 'post',
             data: params,
-            mock: true
+            mock: false
         })
     },
     // 上传加密

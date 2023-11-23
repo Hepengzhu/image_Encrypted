@@ -3,20 +3,20 @@ import { defineStore } from 'pinia'
 import  VueCookies  from 'vue-cookies'
 
 export const useUserStore = defineStore('user', () => {
-    const userInfo = reactive({
-        name:'admin',
-        age:'18',
-        imgUrl:'/src/assets/image/头像.jpg'
+    const userForm = reactive({
+        username:'',
+        password:'',
+        imgUrl:''
     })
-    userInfo.name = VueCookies.get('name')?VueCookies.get('name'):'admin'
-    userInfo.age = VueCookies.get('age')?VueCookies.get('age'):'18'
-    userInfo.imgUrl = VueCookies.get('imgUrl')?VueCookies.get('imgUrl'):'/src/assets/image/头像.jpg'
+    userForm.username = VueCookies.get('username')?VueCookies.get('username'):'zsy'
+    userForm.password = VueCookies.get('password')?VueCookies.get('password'):'z114514'
+    userForm.imgUrl = VueCookies.get('imgUrl')?VueCookies.get('imgUrl'):'/src/assets/impassword/头像.jpg'
     
-    const saveUserInfo = (name,age,imgUrl)=>{
-        VueCookies.set('name',name)
-        VueCookies.set('age',age)
+    const saveUserInfo = (username,password,imgUrl)=>{
+        VueCookies.set('username',username)
+        VueCookies.set('password',password)
         VueCookies.set('imgUrl',imgUrl)
     }
 
-  return { userInfo, saveUserInfo }
+  return { userForm, saveUserInfo }
 })

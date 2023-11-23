@@ -5,7 +5,7 @@ import  VueCookies  from 'vue-cookies'
 import {useUserStore} from '/src/stores/user.js'
 const store = useUserStore()
 const {saveUserInfo} = store
-const {userInfo} = storeToRefs(store) 
+const {userForm} = storeToRefs(store) 
 
 const logOut = ()=>{
     VueCookies.set('aa','aakakak')
@@ -21,8 +21,8 @@ const logOut = ()=>{
                 <el-dropdown>
                 <div class="user-info">
                     <div class="avatar"></div>
-                    <el-avatar :size="50" :src="userInfo.imgUrl" />
-                    <span class="nick-name">{{userInfo.name}}</span>
+                    <el-avatar :size="50" :src="userForm.imgUrl" />
+                    <span class="nick-name">{{userForm.name}}</span>
                 </div>
                 <template #dropdown>
                     <el-dropdown-menu>
