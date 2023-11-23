@@ -23,8 +23,9 @@ export default {
     // 获取加密图片 -> app的钩子函数
     getImg(params) {
         return request({
-            url: '',
-
+            url: '/getimg',
+            method:'get',
+            mock:true
         })
     }
 

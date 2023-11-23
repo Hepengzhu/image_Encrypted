@@ -1,6 +1,6 @@
 <script setup>
 import axios from "axios"
-import { ref,defineProps  } from "vue"
+import { ref,defineProps,onBeforeUnmount  } from "vue"
 import {useImageData} from '/src/stores/img.js'
 import {useimgDownload} from '/src/hooks'
 import { storeToRefs } from "pinia"
@@ -36,15 +36,22 @@ const handleCheckAllChange = (val) => {
   checkedSrcList.value = val ? urlList.value : []
   //console.log(checkedSrcList.value);
   isIndeterminate.value = false
+  
 }
 // 选择时触发的函数
 const handleCheckedSrcListChange = (value) => {
+  console.log(checkedSrcList.value);
   const checkedCount = value.length
   checkAll.value = checkedCount === urlList.value.length
   isIndeterminate.value = checkedCount > 0 && checkedCount < urlList.value.length
 }
 
 const props = defineProps(['imgType'])
+
+// 切换组件时，清除已选择的内容
+onBeforeUnmount(()=>{
+  checkedSrcList.value.length = 0
+})
 
 </script>
 <!-- hide-on-click-modal=true -->

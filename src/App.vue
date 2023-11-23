@@ -10,12 +10,13 @@ const store = useImageData()
 const {urlList,encryptionImg} = storeToRefs(store)
 let isRefreshing = ref(false)
 
-// 获取加密的图片数据
+// 获取加密和不加密的图片数据
 onMounted(async ()=>{
   const image = await apis.getImg()
+  console.log(image);
   // 加密图和原图同步存储
-  // encryptionImg.value.push(...image)
-  // urlList.value.push()
+  encryptionImg.value.push(...image.data.encryptionImg)
+  urlList.value.push(...image.data.urlList)
 })
 
 
