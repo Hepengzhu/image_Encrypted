@@ -2,7 +2,19 @@
 import { onBeforeUnmount, onMounted, ref} from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import  VueCookies from 'vue-cookies'
+import apis from './api/apis'
+import {useImageData} from '/src/stores/img.js'
+import { storeToRefs } from "pinia"
+
+const store = useImageData()
+const {encryptionImg} = storeToRefs(store)
 let isRefreshing = ref(false)
+
+// 获取加密的图片数据
+onMounted(async ()=>{
+  const image = await apis.getImg()
+  encryptionImg.value.push(...image)
+})
 // onMounted(()=>{
 //     window.addEventListener('onbeforeunload',function(){
 //       alert('确定关闭吗')
@@ -23,17 +35,17 @@ let isRefreshing = ref(false)
 
 
 // })
-    window.onbeforeunload = function(){
-      alert('lalaal')
-      isRefreshing.value = true
-    }
-    window.onunload = function(){
-      if(!isRefreshing.value){
-        console.log('app加载了');
-        VueCookies.remove('currentMenu')
-        VueCookies.remove('subCurrentMenu')    
-      }
-    }
+    // window.onbeforeunload = function(){
+    //   alert('lalaal')
+    //   isRefreshing.value = true
+    // }
+    // window.onunload = function(){
+    //   if(!isRefreshing.value){
+    //     console.log('app加载了');
+    //     VueCookies.remove('currentMenu')
+    //     VueCookies.remove('subCurrentMenu')    
+    //   }
+    // }
 </script>
 
 <template>  

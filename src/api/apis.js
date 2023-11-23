@@ -2,21 +2,29 @@ import request from "./request";
 
 export default {
     // 登录
-    login(params){
+    login(params) {
         return request({
-            url:'/login',
-            method:'post',
-            data:params,
-            mock:true
+            url: '/login',
+            method: 'post',
+            data: params,
+            mock: true
         })
     },
     // 上传加密
-    uploadImg(params){
+    uploadImg(params) {
         return request({
-            url:'/',
-            method:'post',
-            data:params,
-            mock:false
+            url: '/',
+            method: 'post',
+            data: params,
+            mock: false
+        })
+    },
+
+    // 获取加密图片 -> app的钩子函数
+    getImg(params) {
+        return request({
+            url: '',
+
         })
     }
 

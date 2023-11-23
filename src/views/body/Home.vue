@@ -7,7 +7,7 @@ import ImgUpload from '/src/components/ImgUpload.vue'
 import { storeToRefs } from 'pinia';
 
 let {getImage} = useImageData()
-let {imgFiles} = storeToRefs(useImageData())
+let {imgFiles,encryptionImg} = storeToRefs(useImageData())
 let is_loading = ref(false)
 function upload(){
     // uplodImage(files)
@@ -27,6 +27,9 @@ async function submit(){
   //上传
   apis.uploadImg(imgData).then(res=>{
     is_loading = false
+
+    // 上传成功后添加到已加密图片数组中
+    encryptionImg.value.push(...imgFiles)
     // 清空上传缓存
     imgFiles.value.length = 0
   })
