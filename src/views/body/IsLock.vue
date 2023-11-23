@@ -6,7 +6,7 @@ import { storeToRefs } from "pinia"
 
 
 const store = useImageData()
-const {checkedSrcList} = storeToRefs(store)
+const {checkedSrcList,encryptionImg} = storeToRefs(store)
 // 点击下载
 const download = (changeImage)=>{
   if(checkedSrcList.value.length === 0) return ElMessage({
@@ -28,7 +28,7 @@ const download = (changeImage)=>{
 
 <template>
   <!-- 传递选择图片为 加密图片 -->
-  <ImgCheck :imgType="`encryptionImg`">
+  <ImgCheck :imgType="encryptionImg">
     <template v-slot:button="slotProps">
       <el-button size="large" type="primary" @click="download(slotProps.changeImage)" >解密</el-button>
       <el-button size="large" type="primary" @click="download(slotProps.changeImage)" >下载加密图</el-button>

@@ -40,12 +40,13 @@ const handleCheckAllChange = (val) => {
 }
 // 选择时触发的函数
 const handleCheckedSrcListChange = (value) => {
-  console.log(checkedSrcList.value);
+  console.log(value);
   const checkedCount = value.length
   checkAll.value = checkedCount === urlList.value.length
   isIndeterminate.value = checkedCount > 0 && checkedCount < urlList.value.length
 }
 
+// 接收父组件传递的图片内容
 const props = defineProps(['imgType'])
 
 // 切换组件时，清除已选择的内容
@@ -72,9 +73,9 @@ onBeforeUnmount(()=>{
                 v-model="checkedSrcList"
                 @change="handleCheckedSrcListChange"
             >
-                <div class="img-card" v-for="(url,index) in urlList" :key="url" >
+                <div class="img-card" v-for="(url,index) in imgType" :key="url" >
                   <!-- :label='encryptionImg[index]' 绑定对应的加密图片 -->
-                    <el-checkbox size="large" :label='`${imgType}`[index]' v-show="checkShow">
+                    <el-checkbox size="large" :label='url' v-show="checkShow">
                       <template v-slot></template>
                     </el-checkbox>
                     <el-image

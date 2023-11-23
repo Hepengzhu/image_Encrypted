@@ -6,7 +6,7 @@ import { storeToRefs } from "pinia"
 
 const store = useImageData()
 // 获取已经选择的图片
-const {checkedSrcList,encryptionImg} = storeToRefs(store)
+const {checkedSrcList,encryptionImg,urlList} = storeToRefs(store)
 
 // 上传加密
 const decrypt = (changeImage)=>{
@@ -23,7 +23,7 @@ const decrypt = (changeImage)=>{
 
 <template>
   <!-- 传递选择图片类型 为原图 -->
-  <ImgCheck :imgType="`urlList`">
+  <ImgCheck :imgType="urlList">
     <template v-slot:button="slotProps">
       <el-button size="large" type="primary" @click="decrypt(slotProps.changeImage)" >加密</el-button>
       <el-button size="large" type="primary" @click="decrypt(slotProps.changeImage)" >下载</el-button>
