@@ -24,5 +24,13 @@ app.use(cookies)
 
 app.mount('#app')
 
+router.beforeEach((to,from,next)=>{
+  // console.log(cookies.get('username'));
+  // if(cookies.get('username') && cookies.get('password')) {next()}
+  // else {
+  //   next('/')
+  // }
+  next()
+})
 
 // 关闭网页时清除菜单状态

@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from 'vue'
+import {ref,onMounted} from 'vue'
 import { ElMessage } from 'element-plus';
 import apis from '../../api/apis';
 import { useImageData } from '../../stores/img';
@@ -7,13 +7,11 @@ import ImgUpload from '/src/components/ImgUpload.vue'
 import { storeToRefs } from 'pinia';
 
 let {getImage} = useImageData()
-let {imgFiles,encryptionImg} = storeToRefs(useImageData())
-let is_loading = ref(false)
-function upload(){
-    // uplodImage(files)
-}
-
+let {imgFiles,encryptionImg,urlList} = storeToRefs(useImageData())
+let childRef = ref(null)
+let is_loading = ref(false) //上传中状态
 let img = ref([])
+
 // file.raw 获取 原始 File 对象的方式
 async function submit(){
   if(imgFiles.value.length === 0) return ElMessage({
@@ -27,11 +25,14 @@ async function submit(){
   //上传
   apis.uploadImg(imgData).then(res=>{
     is_loading = false
-
+ 
     // 上传成功后添加到已加密图片数组中
-    encryptionImg.value.push(...imgFiles)
+    // urlList.value.push(...imgFiles.value) //原图预览添加
+    // encryptionImg.value.push(...res) // 加密图片同步
     // 清空上传缓存
     imgFiles.value.length = 0
+    // 调用父组件的函数->上传成功后清除文件显示
+    childRef.value.uploadSuccess()
   })
 
 }
@@ -52,7 +53,7 @@ async function submit(){
             </el-button>
         </div>
         <!-- 图片上传组件 -->
-        <ImgUpload/>
+        <ImgUpload ref="childRef" />
         
     </div>
 </template>

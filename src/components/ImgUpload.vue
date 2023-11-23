@@ -4,6 +4,7 @@ import {useImageData} from '../stores/img'
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 
+let upload = ref(null)
 const imgFormData = new FormData()
 
 // 将要上传的图片
@@ -22,6 +23,7 @@ function handleChange(file,files){
     ElMessage.error('上传图片格式不能超过 2MB!')
     return false
   }
+  // 添加到上传缓存区
   imgFiles.value.push(file)
   // console.log(file.file);
   // console.log(imgFiles[0]);
@@ -50,8 +52,16 @@ const handleDownload = (UploadFile) => {
   console.log(UploadFile)
 }
 
+// 上传成功后清除文件显示
+const uploadSuccess =()=>{
+  // clearFiles
+  upload.value.clearFiles()
+}
 
-
+// 暴露出去，以便父组件可以调用
+defineExpose({
+  uploadSuccess,
+});
 // this.$refs.upload.clearFiles(); 
 </script>
 
@@ -59,6 +69,7 @@ const handleDownload = (UploadFile) => {
   <div>
     <div>
       <el-upload
+      ref="upload"
       class="upload-demo"
       drag
       :auto-upload="false"
@@ -68,6 +79,7 @@ const handleDownload = (UploadFile) => {
       list-type="picture-card"
       :on-remove="handleRemove"
       :on-preview="handlePictureCardPreview"
+      :on-success="uploadSuccess"
     >
       <el-icon class="el-icon--upload"><upload-filled /></el-icon>
       <div class="el-upload__text">

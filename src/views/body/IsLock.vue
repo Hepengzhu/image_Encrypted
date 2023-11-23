@@ -13,6 +13,7 @@ const download = (changeImage)=>{
       message: '您还没有选择图片!',
       type: 'warning',
     })
+    
     // 下载
     checkedSrcList.value.forEach((url,index) => {
         // index为图片名字

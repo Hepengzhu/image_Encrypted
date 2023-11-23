@@ -6,11 +6,11 @@ import {useimgDownload} from '/src/hooks'
 import { storeToRefs } from "pinia"
 
 const store = useImageData()
-const {checkedSrcList,encryptionImg} = storeToRefs(store)
+const {checkedSrcList,urlList,encryptionImg} = storeToRefs(store)
 
 let checkShow = ref(false) //是否显示选择框
 const url ='https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg'
-// const encryptionImg = [
+// const urlList = [
 //     '/src/assets/image/头像.jpg',
 //     'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
 //     'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
@@ -21,11 +21,11 @@ const url ='https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.j
 //     ]
 
 
-let isPreview = ref(encryptionImg.value) //是否可预览图片用于选择图片的时候取消预览
+let isPreview = ref(urlList.value) //是否可预览图片用于选择图片的时候取消预览
 // 选择图片的状态控制
 const changeImage = ()=>{
     checkShow.value = !checkShow.value
-    isPreview.value = checkShow.value?[]:encryptionImg.value
+    isPreview.value = checkShow.value?[]:urlList.value
 }
 // 多选
 const checkAll = ref(false)
@@ -33,15 +33,15 @@ const isIndeterminate = ref(true) //不确定全选的状态
 // const checkedSrcList = ref([]) //已选择的数据
 // 全选函数
 const handleCheckAllChange = (val) => {
-  checkedSrcList.value = val ? encryptionImg.value : []
-//   console.log(checkedSrcList.value);
+  checkedSrcList.value = val ? urlList.value : []
+  //console.log(checkedSrcList.value);
   isIndeterminate.value = false
 }
 // 选择时触发的函数
 const handleCheckedSrcListChange = (value) => {
   const checkedCount = value.length
-  checkAll.value = checkedCount === encryptionImg.value.length
-  isIndeterminate.value = checkedCount > 0 && checkedCount < encryptionImg.value.length
+  checkAll.value = checkedCount === urlList.value.length
+  isIndeterminate.value = checkedCount > 0 && checkedCount < urlList.value.length
 }
 </script>
 <!-- hide-on-click-modal=true -->
@@ -62,8 +62,9 @@ const handleCheckedSrcListChange = (value) => {
                 v-model="checkedSrcList"
                 @change="handleCheckedSrcListChange"
             >
-                <div class="img-card" v-for="(url,index) in encryptionImg" :key="url" >
-                    <el-checkbox size="large" :label='url' v-show="checkShow">
+                <div class="img-card" v-for="(url,index) in urlList" :key="url" >
+                  <!-- :label='encryptionImg[index]' 绑定对应的加密图片 -->
+                    <el-checkbox size="large" :label='encryptionImg[index]' v-show="checkShow">
                       <template v-slot></template>
                     </el-checkbox>
                     <el-image
