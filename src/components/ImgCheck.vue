@@ -1,6 +1,6 @@
 <script setup>
 import axios from "axios"
-import { ref } from "vue"
+import { ref,defineProps  } from "vue"
 import {useImageData} from '/src/stores/img.js'
 import {useimgDownload} from '/src/hooks'
 import { storeToRefs } from "pinia"
@@ -43,6 +43,9 @@ const handleCheckedSrcListChange = (value) => {
   checkAll.value = checkedCount === urlList.value.length
   isIndeterminate.value = checkedCount > 0 && checkedCount < urlList.value.length
 }
+
+const props = defineProps(['imgType'])
+
 </script>
 <!-- hide-on-click-modal=true -->
 <template>
@@ -64,7 +67,7 @@ const handleCheckedSrcListChange = (value) => {
             >
                 <div class="img-card" v-for="(url,index) in urlList" :key="url" >
                   <!-- :label='encryptionImg[index]' 绑定对应的加密图片 -->
-                    <el-checkbox size="large" :label='encryptionImg[index]' v-show="checkShow">
+                    <el-checkbox size="large" :label='`${imgType}`[index]' v-show="checkShow">
                       <template v-slot></template>
                     </el-checkbox>
                     <el-image

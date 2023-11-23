@@ -10,7 +10,7 @@ export const useUserStore = defineStore('user', () => {
     })
     userForm.username = VueCookies.get('username')?VueCookies.get('username'):'zsy'
     userForm.password = VueCookies.get('password')?VueCookies.get('password'):'z114514'
-    userForm.imgUrl = VueCookies.get('imgUrl')?VueCookies.get('imgUrl'):'/src/assets/impassword/头像.jpg'
+    userForm.imgUrl = VueCookies.get('imgUrl')?VueCookies.get('imgUrl'):'/src/assets/image/头像.jpg'
     
     const saveUserInfo = (userForm)=>{
         VueCookies.set('username',userForm.username)

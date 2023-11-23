@@ -52,7 +52,7 @@ export const useMenus = defineStore('menus', () => {
                 },
                 {
                     icon:'Unlock',
-                    name:'一键解密',
+                    name:'已解密',
                     menuCode:'unlock',
                     path:'/main/unlock'
                 }

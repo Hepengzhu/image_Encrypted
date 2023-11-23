@@ -22,7 +22,7 @@ const logOut = ()=>{
                 <div class="user-info">
                     <div class="avatar"></div>
                     <el-avatar :size="50" :src="userForm.imgUrl" />
-                    <span class="nick-name">{{userForm.name}}</span>
+                    <span class="nick-name">{{userForm.username}}</span>
                 </div>
                 <template #dropdown>
                     <el-dropdown-menu>
@@ -64,6 +64,7 @@ const logOut = ()=>{
                     color: var(--el-color-primary);
                     display: flex;
                     align-items: center;
+                    margin-left: 6px;
                 }
             }
             div {
