@@ -74,7 +74,7 @@ onBeforeUnmount(()=>{
                 @change="handleCheckedSrcListChange"
             >
                 <div class="img-card" v-for="(url,index) in imgList" :key="url" >
-                  <!-- :label='encryptionImg[index]' 绑定对应的加密图片 -->
+                                              <!-- :label=''根据父组件的要求绑定对应的图片 -->
                     <el-checkbox size="large" :label='imgType?imgType[index]:url' v-show="checkShow">
                       <template v-slot></template>
                     </el-checkbox>

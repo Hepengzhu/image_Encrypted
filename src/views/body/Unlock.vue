@@ -9,7 +9,7 @@ const store = useImageData()
 const {checkedSrcList,encryptionImg,urlList,decryptImg} = storeToRefs(store)
 
 // 上传加密
-const decrypt = (changeImage)=>{
+const encryption = (changeImage)=>{
   if(checkedSrcList.value.length === 0) return ElMessage({
       message: '您还没有选择图片!',
       type: 'warning',
@@ -25,8 +25,8 @@ const decrypt = (changeImage)=>{
   <!-- 传递选择图片类型 为已解密原图 decryptImg -->
   <ImgCheck :imgList="decryptImg">
     <template v-slot:button="slotProps">
-      <el-button size="large" type="primary" @click="decrypt(slotProps.changeImage)" >加密</el-button>
-      <el-button size="large" type="primary" @click="decrypt(slotProps.changeImage)" >下载</el-button>
+      <el-button size="large" type="primary" @click="encryption(slotProps.changeImage)" >加密</el-button>
+      <el-button size="large" type="primary" @click="encryption(slotProps.changeImage)" >下载</el-button>
     </template>
   </ImgCheck>
 </template>

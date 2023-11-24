@@ -19,7 +19,6 @@ service.interceptors.request.use((req)=>{
 service.interceptors.response.use((res)=>{
     // 对请求结果进行统一的处理  
     // 解构结果
-    console.log('aaaa');
     console.log(res.data);
     // console.log('aaaaaaaaaaa');
     // console.log(res.data);
