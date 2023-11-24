@@ -27,7 +27,6 @@ const url ='https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.j
 //     'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg',
 //     ]
 
-
 let isPreview = ref(props.imgList.map(item=>item.data)) //是否可预览图片用于选择图片的时候取消预览
 // isPreview.value = 
 // 选择图片的状态控制
