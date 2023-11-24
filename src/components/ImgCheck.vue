@@ -5,6 +5,13 @@ import {useImageData} from '/src/stores/img.js'
 import {useimgDownload} from '/src/hooks'
 import { storeToRefs } from "pinia"
 
+// 接收父组件传递的图片内容
+const props = defineProps({
+  imgList:Object,
+  imgType:Object
+})
+
+console.log(props.imgList[0]);
 const store = useImageData()
 const {checkedSrcList,urlList,encryptionImg} = storeToRefs(store)
 
@@ -21,11 +28,12 @@ const url ='https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.j
 //     ]
 
 
-let isPreview = ref(urlList.value) //是否可预览图片用于选择图片的时候取消预览
+let isPreview = ref(props.imgList.map(item=>item.data)) //是否可预览图片用于选择图片的时候取消预览
+// isPreview.value = 
 // 选择图片的状态控制
 const changeImage = ()=>{
     checkShow.value = !checkShow.value
-    isPreview.value = checkShow.value?[]:urlList.value
+    isPreview.value = checkShow.value?[]:props.imgList.map(item=>item.data)
 }
 // 多选
 const checkAll = ref(false)
@@ -33,7 +41,7 @@ const isIndeterminate = ref(true) //不确定全选的状态
 // const checkedSrcList = ref([]) //已选择的数据
 // 全选函数
 const handleCheckAllChange = (val) => {
-  checkedSrcList.value = val ? urlList.value : []
+  checkedSrcList.value = val ? props.imgList : []
   //console.log(checkedSrcList.value);
   isIndeterminate.value = false
   
@@ -42,12 +50,10 @@ const handleCheckAllChange = (val) => {
 const handleCheckedSrcListChange = (value) => {
   console.log(value);
   const checkedCount = value.length
-  checkAll.value = checkedCount === urlList.value.length
-  isIndeterminate.value = checkedCount > 0 && checkedCount < urlList.value.length
+  checkAll.value = checkedCount === props.imgList.length
+  isIndeterminate.value = checkedCount > 0 && checkedCount < props.imgList.length
 }
 
-// 接收父组件传递的图片内容
-const props = defineProps(['imgList','imgType'])
 
 // 切换组件时，清除已选择的内容
 onBeforeUnmount(()=>{
@@ -73,14 +79,14 @@ onBeforeUnmount(()=>{
                 v-model="checkedSrcList"
                 @change="handleCheckedSrcListChange"
             >
-                <div class="img-card" v-for="(url,index) in imgList" :key="url" >
+                <div class="img-card" v-for="(item,index) in imgList" :key="item" >
                                               <!-- :label=''根据父组件的要求绑定对应的图片 -->
-                    <el-checkbox size="large" :label='imgType?imgType[index]:url' v-show="checkShow">
+                    <el-checkbox size="large" :label='imgType?imgType[index]:item' v-show="checkShow">
                       <template v-slot></template>
                     </el-checkbox>
                     <el-image
                         style="width: 300px; height: 200px"
-                        :src="url"  
+                        :src="item.data"  
                         :zoom-rate="1.2"
                         :max-scale="7"
                         :min-scale="0.2"
@@ -108,7 +114,10 @@ onBeforeUnmount(()=>{
             right: 2px;
         }
     }
+    // 预览图片容器
+    .el-image-viewer__canvas{
 
+    }
   }
   .button {
     width: 100%;

@@ -28,7 +28,7 @@ const download = (changeImage)=>{
 
 <template>
   <!--imgList:图片数据源为原图片 imgType：选择图片为加密图片 -->
-  <ImgCheck :imgList="urlList" :imgType="encryptionImg">
+  <ImgCheck :imgList='urlList' :imgType="encryptionImg">
     <template v-slot:button="slotProps">
       <el-button size="large" type="primary" @click="download(slotProps.changeImage)" >解密</el-button>
       <el-button size="large" type="primary" @click="download(slotProps.changeImage)" >下载加密图</el-button>

@@ -18,6 +18,7 @@ onMounted(async ()=>{
   encryptionImg.value.push(...image.data.encryptionImg) //加密图片
   urlList.value.push(...image.data.urlList) //加密原图
   decryptImg.value.push(...image.data.decryptImg) //解密的原图
+
 })
 
 

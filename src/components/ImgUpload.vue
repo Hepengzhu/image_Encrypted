@@ -69,49 +69,23 @@ defineExpose({
   <div>
     <div>
       <el-upload
-      ref="upload"
-      class="upload-demo"
-      drag
-      :auto-upload="false"
-      :on-change="handleChange"
-      action="#"
-      multiple:true
-      list-type="picture-card"
-      :on-remove="handleRemove"
-      :on-preview="handlePictureCardPreview"
-      :on-success="uploadSuccess"
-    >
-      <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-      <div class="el-upload__text">
-        拖拽到此处或 <br><em>点击选择图片</em>
-      </div>
-      <!-- <template #file="{ file }">
-        <div>
-          <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
-          <span class="el-upload-list__item-actions">
-            <span
-              class="el-upload-list__item-preview"
-              @click="handlePictureCardPreview(file)"
-            >
-              <el-icon><zoom-in /></el-icon>
-            </span>
-            <span
-              v-if="!disabled"
-              class="el-upload-list__item-delete"
-              @click="handleDownload(file)"
-            >
-              <el-icon><Download /></el-icon>
-            </span>
-            <span
-              v-if="!disabled"
-              class="el-upload-list__item-delete"
-              @click="handleRemove(file,fileList)"
-            >
-              <el-icon><Delete /></el-icon>
-            </span>
-          </span>
+        ref="upload"
+        class="upload-demo"
+        drag
+        :auto-upload="false"
+        :on-change="handleChange"
+        action="#"
+        multiple:true
+        list-type="picture-card"
+        :on-remove="handleRemove"
+        :on-preview="handlePictureCardPreview"
+        :on-success="uploadSuccess"
+      >
+        <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+        <div class="el-upload__text">
+          拖拽到此处或 <br><em>点击选择图片</em>
         </div>
-      </template> -->
+
       </el-upload>
       <!-- 图片预览 -->
       <el-dialog v-model="dialogVisible">
