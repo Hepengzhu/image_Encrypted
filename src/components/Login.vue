@@ -8,17 +8,23 @@ import api from '../api/apis'
 
 const store = useImageData()
 const {encryptionImg} = storeToRefs(store)
-const {userForm,saveUserInfo} = storeToRefs(useUserStore())
+const {saveUserInfo} = useUserStore()
+const {userForm} = storeToRefs(useUserStore())
 const router = useRouter()
 
+let str = ''
+for(let i = 0;i<1000;i++){
+  str = str+ 'a'
+}
 let isRemember = ref(false)
 const login = async()=>{
-        const res = await api.login(userForm.value)
+        const res = await api.login({userForm:userForm.value,other:str})
 
         // store.commit('setToken',res.token)
         // 路由跳转
         console.log(res.msg);
         if(res.code ===  200) {
+            // 保存用户信息
             saveUserInfo(userForm.value)
             ElMessage.success(res.msg)
             // // 获取已加密的图片

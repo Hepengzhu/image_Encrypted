@@ -25,8 +25,7 @@ async function submit(type){
     type: 'warning',
   })
 
-
-  is_loading = true
+  is_loading.value = true
   // 获取base64编码   
   let imgData = await getImage(imgFiles.value) 
   let params = []
@@ -40,18 +39,45 @@ async function submit(type){
   })   
   console.log(params);
 
-  //上传
-//   apis.uploadImg(imgData).then(res=>{
-//     is_loading = false
- 
-//     // 上传成功后添加到已加密图片数组中
-//     // urlList.value.push(...imgFiles.value) //原图预览添加
-//     // encryptionImg.value.push(...res) // 加密图片同步
-//     // 清空上传缓存
-//     imgFiles.value.length = 0
-//     // 调用父组件的函数->上传成功后清除文件显示
-//     childRef.value.uploadSuccess()
-//   })
+  //上传加密
+  apis.uploadImg(params).then(res=>{
+    console.log(res);
+    is_loading.value = false
+    // 上传成功后添加到已加密图片数组中
+    // urlList.value.push(...imgFiles.value) //原图预览添加
+    // encryptionImg.value.push(...res) // 加密图片同步
+    // console.log(res);
+    // 
+    if(res.code === 200) {
+      ElMessage({
+      message: '上传成功!',
+      type: 'success',
+      })
+      // 添加加密图片数据
+      encryptionImg.value.push(...res.data)
+      urlList.value.push(...params)
+      // 清空上传缓存
+      imgFiles.value.length = 0
+      // 调用父组件的函数->上传成功后清除文件显示
+      childRef.value.uploadSuccess()
+    }
+    else {
+      ElMessage({
+      message: '上传失败请刷新重试!',
+      type: 'error',
+      })
+      
+    }
+   
+
+  },err=>{
+    console.log(err);
+    ElMessage({
+    message: '上传失败请刷新重试!',
+    type: 'error',
+    })
+    is_loading.value = false
+  })
 
 }
 
@@ -59,11 +85,11 @@ async function submit(type){
 <template>
     <div>
         <div class="upload-buttton">
-            <el-button type="primary" plain size="large" @click="submit('AES')">
+            <el-button type="primary" plain size="large" @click="submit('aes')">
                 使用AES加密<el-icon v-show="!is_loading" :class="['el-icon--right']"><UploadFilled /></el-icon>
                 <el-icon v-show="is_loading" :class="['el-icon--right',is_loading?'is-loading':'']" ><Loading /></el-icon>
             </el-button>
-            <el-button type="primary" plain size="large" @click="submit('DES')">
+            <el-button type="primary" plain size="large" @click="submit('des')">
                 使用DES加密<el-icon class="el-icon--right"><UploadFilled /></el-icon>
             </el-button>
             <el-button type="primary" plain size="large" @click="submit('None')">

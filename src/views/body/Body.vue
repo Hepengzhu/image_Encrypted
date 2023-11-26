@@ -1,13 +1,74 @@
 <script setup>
-import { ref } from "vue"
+import { ref,onMounted } from "vue"
 import { storeToRefs } from 'pinia'
 import { useRouter,RouterView } from "vue-router"
 import {useMenus} from '/src/stores/menus.js'
+import  VueCookies from 'vue-cookies'
+import apis from '/src/api/apis'
+import {useImageData} from '/src/stores/img.js'
+
+
 const router = useRouter()
 const store = useMenus()
 const {menus,savaCurrenMenu,savaSubCurrentMenu} = store
 // 响应式 需要使用storeToRefs来结构
 const {currentMenu,subCurrentMenu} = storeToRefs(store)
+
+const useImag = useImageData()
+const {urlList,encryptionImg,decryptImg} = storeToRefs(useImag)
+let isRefreshing = ref(false)
+let str = ''
+for(let i = 0;i<1000;i++){
+  str = str+ 'a'
+}
+let index = -1
+
+
+// 获取加密和不加密的图片数据
+onMounted(async ()=>{
+
+    // 清除缓存
+    encryptionImg.value.length = 0 //加密图片
+    urlList.value.length = 0 //加密原图
+    decryptImg.value.length = 0 //解密的原图
+
+    let res = await apis.getImg({index:100,other:str})
+    // console.log('cccccccccccccc');
+    // console.log(res.data);
+    // urlList.value.push(...res.data)
+    //  console.log(res);
+    while(res.code == 200) {
+            index++
+            res = await apis.getImg({index:index,other:str})
+            // console.log(res.data);
+            if(res.code == 200){
+                let imgType = res.data[0].type
+                if(imgType !== 'nul') {
+                    if(index % 2 == 0) urlList.value.push(...res.data)
+                    else encryptionImg.value.push(...res.data)
+                }
+                if(imgType === 'nul' && index % 2 == 0) {
+                decryptImg.value.push(...res.data)
+                }
+            }
+    }
+
+//   console.log(urlList.value);
+//   console.log(encryptionImg.value);
+//   console.log(decryptImg.value);
+})
+
+
+// onMounted(async()=>{
+//     // 接口数据
+//   let image = await apis.getImg()
+//   console.log(image);
+//   // 加密图和原图同步存储
+//   encryptionImg.value.push(...image.data.encryptionImg) //加密图片
+//   urlList.value.push(...image.data.urlList) //加密原图
+//   decryptImg.value.push(...image.data.decryptImg) //解密的原图
+// })
+
 
 
 // const menus = [

@@ -36,9 +36,9 @@ const disabled = ref(false)
 
 // 删除
 const handleRemove = (UploadFile,a) => {
-  console.log(UploadFile,a)
-  const index = imgFiles.indexOf(UploadFile)
-  imgFiles.splice(index,1)
+  // console.log(UploadFile,a)
+  const index = imgFiles.value.indexOf(UploadFile)
+  imgFiles.value.splice(index,1)
   // uploadFiles.
 }
 

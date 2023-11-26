@@ -1,11 +1,12 @@
 import './assets/main.css'
-
+import axios from 'axios'
 import { createApp, onMounted } from 'vue'
 import { createPinia } from 'pinia'
 import { VueCookies } from 'vue-cookies'
 import App from './App.vue'
 import router from './router'
 import cookies from 'vue-cookies' //引入cookie
+axios.defaults.withCredentials = false;
 
 // 引入字体图标
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'

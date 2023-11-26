@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
+// const  {createProxyMiddleware}  = require('http-proxy-middleware')
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -23,6 +23,7 @@ export default defineConfig({
     }
   },
   server: {
+    host: '0.0.0.0',
   	https: false,
     proxy: {
       '/api': { // 配置需要代理的路径 --> 这里的意思是代理http://localhost:80/api/后的所有路由

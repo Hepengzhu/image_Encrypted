@@ -2,15 +2,21 @@
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import  VueCookies  from 'vue-cookies'
+import { useRouter } from "vue-router";
 import {useUserStore} from '/src/stores/user.js'
+import {clearCookie} from '/src/hooks/index.js'
 const store = useUserStore()
 const {saveUserInfo} = store
 const {userForm} = storeToRefs(store) 
+const router = useRouter()
+
+
+
 
 const logOut = ()=>{
-    VueCookies.set('aa','aakakak')
-    VueCookies.remove('currentMenu')
-    VueCookies.remove('subCurrentMenu')
+    router.push('/')
+    //清空cookie
+    clearCookie()
 }
 </script>
 <template>

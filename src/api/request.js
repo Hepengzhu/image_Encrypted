@@ -1,16 +1,22 @@
 import axios from "axios";
 import config from "../config";
-import { ElMessage } from "element-plus";
+import  VueCookies  from "vue-cookies";
+// import { ElMessage } from "element-plus";
 const NETWORK_ERROE = '网络请求异常,请稍后再试'
 
-
+// axios.defaults.maxContentLength = 200000000;
 const service = axios.create({
-    baseURL:config.baseURL
+    baseURL:config.baseURL,
+    withCredentials: false, // 不携带 Cookie
+    timeout:5000,
+    maxContentLength : 20000000
 })
 
 // 请求拦截器 (请求之前做一些事)
 service.interceptors.request.use((req)=>{
     // 自定义header
+    // const userForm = VueCookies.get('username')
+    req.headers['username'] = VueCookies.get('username')?VueCookies.get('username'):'hpz';
     // jwt-token认证的时候
     return req
 })
@@ -19,17 +25,21 @@ service.interceptors.request.use((req)=>{
 service.interceptors.response.use((res)=>{
     // 对请求结果进行统一的处理  
     // 解构结果
-    console.log(res.data);
-    // console.log('aaaaaaaaaaa');
-    // console.log(res.data);
-    const {data,msg} = res.data
-    if(res.status == 200) {
-        return res.data
-    }else{
-        console.log(msg,data);
-        // 网络请求错误
-        ElMessage.error(msg || NETWORK_ERROE)
-        return Promise.reject(msg || NETWORK_ERROE)
+    try {
+        // console.log(res.data);
+        // console.log('aaaaaaaaaaa');
+        // console.log(res.data);
+        const {data,msg} = res.data
+        if(res.status == 200) {
+            return res.data
+        }else{
+            console.log(msg,data);
+            // 网络请求错误
+            ElMessage.error(msg || NETWORK_ERROE)
+            return Promise.reject(msg || NETWORK_ERROE)
+        }
+    } catch (error) {
+        ElMessage.error('请求服务器错误!')
     }
 })
 
@@ -65,7 +75,6 @@ function request(options) {
     }else {
         // 否则根据 mock的开关来决定
         service.defaults.baseURL = isMock? config.mockApi : config.baseApi
-        console.log(options);
     }
     return service(options)
 }

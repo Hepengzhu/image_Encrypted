@@ -13,19 +13,31 @@ export default {
     // 上传加密
     uploadImg(params) {
         return request({
-            url: '/',
+            url: '/upload',
             method: 'post',
             data: params,
-            mock: false
+            mock: false,
         })
     },
 
     // 获取加密图片 -> app的钩子函数
     getImg(params) {
         return request({
-            url: '/getimg',
-            method:'get',
-            mock:true
+            url: '/getimage',
+            method:'post',
+            data:params,
+            mock:false,
+            // maxContentLength: 200000000
+        })
+    },
+    
+    // 解密
+    download(params) {
+        return request({
+            url:'/download',
+            method:'post',
+            data:params,
+            mock:false
         })
     }
 
