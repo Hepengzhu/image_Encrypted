@@ -11,8 +11,6 @@ const {userForm} = storeToRefs(store)
 const router = useRouter()
 
 
-
-
 const logOut = ()=>{
     router.push('/')
     //清空cookie

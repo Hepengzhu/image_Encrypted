@@ -107,10 +107,7 @@ onBeforeUnmount(()=>{
             right: 2px;
         }
     }
-    // 预览图片容器
-    .el-image-viewer__canvas{
 
-    }
   }
   .button {
     width: 100%;
