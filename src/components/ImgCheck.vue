@@ -46,9 +46,6 @@ const handleCheckedSrcListChange = (value) => {
   isIndeterminate.value = checkedCount > 0 && checkedCount < props.imgList.length
 }
 
-const handleRemove = ()=>{
-  console.log('llllllllllllll');
-}
 
 // 切换组件时，清除已选择的内容
 onBeforeUnmount(()=>{
